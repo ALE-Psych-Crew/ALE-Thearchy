@@ -3,6 +3,9 @@
     "speed": 2,
     "charactersOffset": {
         "type": {
+            "opponent": {
+                "x": -500
+            },
             "player": {
                 "x": 1000,
                 "y": 100

@@ -12,4 +12,4 @@ function postCreate()
     moveCamera(dad);
 }
 
-startTime = 0.1 ?? Conductor.beatsToTime(0);
+startTime = 0.1 ?? Conductor.beatsToTime(88);
