@@ -1,0 +1,106 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				-130,
+				280
+			],
+			"anim": "idle-3",
+			"fps": 12,
+			"name": "he crazy",
+			"indices": [
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59,
+				60
+			]
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-131,
+				279
+			],
+			"anim": "idle",
+			"fps": 12,
+			"name": "he crazy",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				-131,
+				280
+			],
+			"anim": "idle-2",
+			"fps": 12,
+			"name": "he crazy",
+			"indices": [
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30
+			]
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": true,
+	"image": "characters/thearchyCutscene",
+	"position": [
+		-1180,
+		0
+	],
+	"healthicon": "thearchy",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		255,
+		255
+	],
+	"camera_position": [
+		-770,
+		-1770
+	],
+	"sing_duration": 4,
+	"scale": 3,
+	"_editor_isPlayer": false
+}

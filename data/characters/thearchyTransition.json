@@ -1,0 +1,69 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				-300,
+				741
+			],
+			"loop": false,
+			"fps": 12,
+			"anim": "idle",
+			"indices": [],
+			"name": "idle"
+		},
+		{
+			"offsets": [
+				-243,
+				750
+			],
+			"loop": false,
+			"fps": 12,
+			"anim": "shake",
+			"indices": [],
+			"name": "shake"
+		},
+		{
+			"offsets": [
+				-243,
+				750
+			],
+			"loop": false,
+			"fps": 12,
+			"anim": "shake-loop",
+			"indices": [],
+			"name": "shakeLoop"
+		},
+		{
+			"offsets": [
+				-103,
+				780
+			],
+			"loop": false,
+			"fps": 12,
+			"anim": "trans",
+			"indices": [],
+			"name": "Transform"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": true,
+	"image": "characters/thearchyTransition",
+	"position": [
+		-1190,
+		250
+	],
+	"healthicon": "thearchy",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		255,
+		255
+	],
+	"camera_position": [
+		-1490,
+		-2860
+	],
+	"sing_duration": 3.8,
+	"scale": 3,
+	"_editor_isPlayer": false
+}

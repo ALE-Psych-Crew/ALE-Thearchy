@@ -1,0 +1,117 @@
+{
+    "zoom": 0.2,
+    "speed": 2,
+    "charactersOffset": {
+        "type": {
+            "player": {
+                "x": 1000,
+                "y": 100
+            }
+        }
+    },
+    "spritesConfig": {
+        "directory": "thearchy",
+        "properties": {
+            "scale": {
+                "x": 2.5,
+                "y": 2.5
+            }
+        },
+        "sprites": [
+            {
+                "id": "wall",
+                "images": [
+                    "wall"
+                ],
+                "type": "image",
+                "properties": {
+                    "x": -2400,
+                    "y": -1300,
+                    "alpha": 0.5,
+                    "velocity": {
+                        "x": 100
+                    },
+                    "scrollFactor": {
+                        "x": 0.2
+                    }
+                },
+                "classPath": "flixel.addons.display.FlxBackdrop"
+            },
+            {
+                "id": "backCubes",
+                "type": "image",
+                "images": [
+                    "backCubes"
+                ],
+                "properties": {
+                    "scrollFactor": {
+                        "x": 0.3
+                    }
+                },
+                "classPath": "flixel.addons.display.FlxBackdrop"
+            },
+            {
+                "id": "milk",
+                "type": "image",
+                "images": [
+                    "milk"
+                ],
+                "properties": {
+                    "x": -4000,
+                    "y": -2000,
+                    "alpha": 0.5,
+                    "scrollFactor": {
+                        "x": 0.4
+                    }
+                }
+            },
+            {
+                "id": "text",
+                "type": "image",
+                "images": [
+                    "text"
+                ],
+                "properties": {
+                    "y": -1500,
+                    "velocity": {
+                        "x": 1000
+                    },
+                    "scrollFactor": {
+                        "x": 0.5
+                    }
+                },
+                "classPath": "flixel.addons.display.FlxBackdrop"
+            },
+            {
+                "id": "cubes",
+                "type": "image",
+                "images": [
+                    "cubes"
+                ],
+                "properties": {
+                    "scrollFactor": {
+                        "x": 0.6
+                    }
+                },
+                "classPath": "flixel.addons.display.FlxBackdrop"
+            },
+            {
+                "id": "ground",
+                "type": "image",
+                "images": [
+                    "ground"
+                ],
+                "properties": {
+                    "x": -100,
+                    "y": 500,
+                    "scale": {
+                        "x": 1,
+                        "y": 1
+                    }
+                },
+                "addMethod": "addBehindPlayers"
+            }
+        ]
+    },
+    "format": "ale-stage-v0.1"
+}

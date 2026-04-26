@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="Thearchy-transform.png">
+<SubTexture name="idle0000" x="2086" y="2195" width="517" height="409" frameX="-539" frameY="-915" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="idle0001" x="1020" y="2195" width="509" height="436" frameX="-541" frameY="-888" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="idle0002" x="507" y="2195" width="513" height="446" frameX="-518" frameY="-875" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="idle0003" x="2272" y="964" width="519" height="475" frameX="-483" frameY="-835" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="idle0004" x="2272" y="0" width="520" height="482" frameX="-477" frameY="-826" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="idle0005" x="2272" y="482" width="520" height="482" frameX="-477" frameY="-826" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="shake0000" x="0" y="2195" width="507" height="466" frameX="-486" frameY="-848" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="shake0001" x="2792" y="0" width="520" height="330" frameX="-551" frameY="-987" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="shake0002" x="2792" y="1304" width="519" height="318" frameX="-553" frameY="-999" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="shake0003" x="2792" y="1622" width="516" height="313" frameX="-557" frameY="-1005" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="shake0004" x="2792" y="1935" width="516" height="313" frameX="-553" frameY="-1006" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="shake0005" x="2792" y="330" width="516" height="329" frameX="-551" frameY="-995" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="shake0006" x="2792" y="659" width="516" height="326" frameX="-549" frameY="-987" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="shakeLoop0000" x="2792" y="2248" width="516" height="313" frameX="-557" frameY="-1005" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="shakeLoop0001" x="0" y="2661" width="516" height="313" frameX="-553" frameY="-1006" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="shakeLoop0002" x="2792" y="985" width="516" height="319" frameX="-557" frameY="-1001" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="shakeLoop0003" x="516" y="2661" width="516" height="313" frameX="-553" frameY="-1006" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0000" x="2272" y="1439" width="518" height="471" frameX="-600" frameY="-858" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0001" x="1032" y="2661" width="612" height="294" frameX="-659" frameY="-1073" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0002" x="1708" y="1210" width="533" height="345" frameX="-736" frameY="-1206" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0003" x="1708" y="630" width="452" height="580" frameX="-560" frameY="-1325" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0004" x="597" y="1580" width="465" height="520" frameX="-519" frameY="-1396" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0005" x="1062" y="1580" width="531" height="515" frameX="-409" frameY="-1211" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0006" x="1593" y="1580" width="486" height="512" frameX="-410" frameY="-1180" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0007" x="1529" y="2195" width="557" height="424" frameX="-374" frameY="-1051" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0008" x="664" y="919" width="675" height="632" frameX="-351" frameY="-710" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0009" x="0" y="1580" width="597" height="615" frameX="-489" frameY="-661" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0010" x="1708" y="0" width="564" height="630" frameX="-437" frameY="-647" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0011" x="0" y="919" width="664" height="661" frameX="-403" frameY="-626" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0012" x="789" y="0" width="919" height="875" frameX="-241" frameY="-426" frameWidth="1500" frameHeight="2000" />
+<SubTexture name="Transform0013" x="0" y="0" width="789" height="919" frameX="-379" frameY="-384" frameWidth="1500" frameHeight="2000" />
+</TextureAtlas>

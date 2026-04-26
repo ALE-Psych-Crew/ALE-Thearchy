@@ -1,0 +1,101 @@
+{
+	"animations": [
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle-loop",
+			"fps": 12,
+			"name": "tsukaretaexpunged idle",
+			"indices": [
+				3,
+				5,
+				6
+			]
+		},
+		{
+			"offsets": [
+				-1,
+				0
+			],
+			"loop": false,
+			"fps": 10,
+			"anim": "idle",
+			"indices": [
+				7,
+				0,
+				1,
+				2,
+				3
+			],
+			"name": "tsukaretaexpunged idle"
+		},
+		{
+			"offsets": [
+				0,
+				-20
+			],
+			"loop": false,
+			"fps": 10,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "tsukaretaexpunged down"
+		},
+		{
+			"offsets": [
+				30,
+				30
+			],
+			"loop": false,
+			"fps": 10,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "tsukaretaexpunged left"
+		},
+		{
+			"offsets": [
+				0,
+				20
+			],
+			"loop": false,
+			"fps": 10,
+			"anim": "singUP",
+			"indices": [],
+			"name": "tsukaretaexpunged up"
+		},
+		{
+			"offsets": [
+				-90,
+				-10
+			],
+			"loop": false,
+			"fps": 10,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "tsukaretaexpunged right"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": true,
+	"image": "characters/tsukareta",
+	"position": [
+		-1110,
+		-790
+	],
+	"healthicon": "tsukareta",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		255,
+		255
+	],
+	"camera_position": [
+		-340,
+		-80
+	],
+	"sing_duration": 3.9,
+	"scale": 1.2,
+	"_editor_isPlayer": false
+}

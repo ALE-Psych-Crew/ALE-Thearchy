@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="Tsukareta-Expunged.png">
+<SubTexture name="tsukaretaexpunged idle0000" x="4421" y="1694" width="901" height="846" frameX="-272" frameY="-452" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged idle0001" x="3536" y="1789" width="885" height="853" frameX="-288" frameY="-444" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged idle0002" x="3536" y="899" width="885" height="890" frameX="-285" frameY="-407" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged idle0003" x="916" y="1910" width="886" height="899" frameX="-283" frameY="-396" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged idle0004" x="1802" y="1910" width="886" height="899" frameX="-280" frameY="-395" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged idle0005" x="3536" y="0" width="885" height="899" frameX="-283" frameY="-396" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged idle0006" x="0" y="2815" width="886" height="899" frameX="-280" frameY="-395" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged idle0007" x="886" y="2815" width="897" height="895" frameX="-277" frameY="-400" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged down0000" x="1760" y="3714" width="869" height="724" frameX="-261" frameY="-683" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged down0001" x="881" y="3714" width="879" height="781" frameX="-266" frameY="-584" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged down0002" x="0" y="3714" width="881" height="788" frameX="-264" frameY="-575" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged down0003" x="4421" y="2540" width="883" height="831" frameX="-299" frameY="-467" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged right0000" x="2837" y="2815" width="1145" height="849" frameX="-249" frameY="-435" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged right0001" x="4421" y="0" width="1097" height="847" frameX="-257" frameY="-438" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged right0002" x="4421" y="847" width="1071" height="847" frameX="-261" frameY="-437" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged right0003" x="0" y="1910" width="916" height="905" frameX="-274" frameY="-410" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged up0000" x="0" y="0" width="881" height="989" frameX="-258" frameY="-283" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged up0001" x="881" y="0" width="887" height="954" frameX="-255" frameY="-332" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged up0002" x="1768" y="0" width="886" height="946" frameX="-259" frameY="-344" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged up0003" x="2654" y="911" width="880" height="903" frameX="-282" frameY="-403" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged left0000" x="1783" y="2815" width="1054" height="872" frameX="-120" frameY="-453" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged left0001" x="885" y="989" width="907" height="920" frameX="-223" frameY="-423" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged left0002" x="0" y="989" width="885" height="921" frameX="-228" frameY="-425" frameWidth="1500" frameHeight="1500" />
+<SubTexture name="tsukaretaexpunged left0003" x="2654" y="0" width="882" height="911" frameX="-257" frameY="-410" frameWidth="1500" frameHeight="1500" />
+</TextureAtlas>
