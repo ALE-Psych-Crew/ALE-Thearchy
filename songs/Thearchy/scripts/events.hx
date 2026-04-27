@@ -42,7 +42,7 @@ function onSongStart()
     camGame.tweenZoom(0.5, 32 * Conductor.secCrochet, {ease: FlxEase.cubeOut});
 }
 
-function onBeatHit(curBeat:Int)
+function onSafeBeatHit(curBeat:Int)
 {
     switch (curBeat)
     {

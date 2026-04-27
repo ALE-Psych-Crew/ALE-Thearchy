@@ -1,5 +1,7 @@
 import funkin.visuals.shaders.FXShader;
 
+return;
+
 var wavyShader:FXShader = new FXShader('wavy');
 wavyShader.set({amplitude: 0.1, frequency: 5, speed: 2.25});
 
