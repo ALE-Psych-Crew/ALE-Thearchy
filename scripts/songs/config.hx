@@ -1,8 +1,18 @@
 import flixel.text.FlxText.FlxTextBorderStyle;
-
 import flixel.util.FlxStringUtil;
 
+import funkin.visuals.shaders.DropShadowShader;
+import funkin.visuals.shaders.FXShader;
+
 using StringTools;
+
+public var shader:FXShader = new FXShader('global');
+shader.set({bloom: 1, red: 1, green: 1, blue: 1});
+
+function postCreate()
+{
+    camGame.setShaders([shader]);
+}
 
 public var ratingsText:FlxText;
 public var stadisticsText:FlxText;
@@ -111,9 +121,7 @@ function onComboDisplay(rating:String)
     return Function_Stop;
 }
 
-startTime = Conductor.beatsToTime(4);
-
-skipCountdown = true;
-
-function postCreate()
-    botplay = true;
+function postCharacterAdd(char:Character)
+{
+    char.shader = new DropShadowShader(char);
+}

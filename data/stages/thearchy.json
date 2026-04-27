@@ -47,11 +47,16 @@
                     "backCubes"
                 ],
                 "properties": {
+                    "x": -2800,
+                    "y": -1700,
+                    "scale": {
+                        "x": 3,
+                        "y": 3
+                    },
                     "scrollFactor": {
                         "x": 0.3
                     }
-                },
-                "classPath": "flixel.addons.display.FlxBackdrop"
+                }
             },
             {
                 "id": "milk",
@@ -92,11 +97,15 @@
                     "cubes"
                 ],
                 "properties": {
+                    "x": -3500,
+                    "y": -1500,
+                    "scale": {
+                        "x": 3
+                    },
                     "scrollFactor": {
                         "x": 0.6
                     }
-                },
-                "classPath": "flixel.addons.display.FlxBackdrop"
+                }
             },
             {
                 "id": "ground",
