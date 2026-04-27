@@ -21,6 +21,8 @@ public var timeText:FlxText;
 
 public var uiMargin:Float = 15;
 
+public var healthBarOverlay:FlxSprite;
+
 function postHudInit()
 {
     ratingsText = new FlxText(uiMargin * 2, 0, FlxG.width, '\n\n\n\n');
@@ -39,6 +41,12 @@ function postHudInit()
     }
 
     timeText.y = uiMargin;
+
+    healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('hud/' + stage.config.hud + '/barOverlay'));
+    healthBarOverlay.x = healthBar.x + healthBar.width / 2 - healthBarOverlay.width / 2;
+    healthBarOverlay.y = healthBar.y + healthBar.height / 2 - healthBarOverlay.height / 2;
+    
+    uiGroup.insert(uiGroup.members.indexOf(healthBar) + 1, healthBarOverlay);
 }
 
 var shits:Int = 0;

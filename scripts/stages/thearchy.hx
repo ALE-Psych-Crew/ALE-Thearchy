@@ -15,7 +15,7 @@ function postCreate()
     for (char in [dad, bf])
     {
         char.shader.angle = -90;
-        char.shader.color = FlxColor.fromRGB(100, 100, 255);
+        char.shader.color = FlxColor.fromRGB(150, 100, 255);
     }
 }
 
