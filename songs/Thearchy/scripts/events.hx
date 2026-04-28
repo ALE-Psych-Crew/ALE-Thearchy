@@ -1,19 +1,22 @@
+import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.addons.display.FlxBackdrop;
+import flixel.util.FlxAxes;
 
 import funkin.visuals.shaders.FXShader;
 
 var mask:FlxBackdrop = new FlxBackdrop();
 mask.makeGraphic(FlxG.width, FlxG.height);
 
-function onCreate()
-{
-    spawnNotes = false;
-
-    skipCountdown = !spawnNotes;
-}
+var subtitles:FlxText = new FlxText(0, 0, FlxG.width, '');
+subtitles.setFormat(Paths.font('comicSans.ttf'), 60, FlxColor.WHITE, 'center', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+subtitles.borderSize = subtitles.size / 10;
+subtitles.y = FlxG.height * 0.7;
+add(subtitles);
 
 function postCreate()
 {
+    subtitles.cameras = [camOther];
+
     shader.set({
         blurWidth: 0.025,
         samples: 10,
@@ -44,14 +47,13 @@ function postCreate()
     dad.shader.brightness = bf.shader.brightness = -200;
 
     camHUD.bopModulo = camGame.bopModulo = 0;
+    camHUD.alpha = 0.5;
 
     camGame.position.set(1250, 650);
     camGame.snapToTarget();
     camGame.zoomSpeed = 2;
     
     camGame.fade(FlxColor.WHITE, 0);
-
-    camHUD.alpha = 0.5;
 }
 
 function onSongStart()
@@ -88,6 +90,21 @@ function onSafeBeatHit(curBeat:Int)
 
             for (obj in uiGroup)
                 FlxTween.tween(obj, {y: obj.y + 200, alpha: 1}, 4 * Conductor.secCrochet, {ease: FlxEase.cubeOut});
+
+            shader.set({blurWidth: 0.1});
+
+            camGame.shake(0.01, 32 * Conductor.secCrochet);
+            camHUD.shake(0.0025, 32 * Conductor.secCrochet);
+        case 64:
+            shader.set({blurWidth: 0.05});
+
+            camGame.targetZoom = 0.4;
+            camGame.stopFX();
+
+            FlxTween.cancelTweensOf(mask);
+            FlxTween.color(mask, Conductor.secCrochet, mask.color ?? FlxColor.WHITE, 0xBF000000);
+
+            FlxTween.tween(camHUD, {alpha: 0}, Conductor.secCrochet);
         case 72:
             stepFunc = (curStep) -> {
                 shader.set({blurWidth: 0.1, aberrationWidth: 0.05, red: 1.2});
@@ -95,7 +112,12 @@ function onSafeBeatHit(curBeat:Int)
 
                 camGame.zoom += 0.03;
                 camHUD.zoom += 0.02;
+
+                camGame.shake(0.01, Conductor.secCrochet / 2);
+                camHUD.shake(0.0025, Conductor.secCrochet);
             };
+
+            stepFunc(0);
 
             stepFuncModulo = 64;
             stepFuncOffset = 32;
@@ -120,7 +142,7 @@ function onSafeBeatHit(curBeat:Int)
     }
 }
 
-startTime = Conductor.beatsToTime(72);
+startTime = Conductor.beatsToTime(0);
 
 function onSafeStepHit(curStep:Int)
 {
@@ -133,4 +155,71 @@ function onSafeStepHit(curStep:Int)
             stepFunc(curStep);
         }
     }
+
+    switch (curStep)
+    {
+        case 256:
+            FlxTween.shake(subtitles, 0.005, 8 * Conductor.secCrochet);
+
+            subtitles.text = 'you';
+        case 261:
+            subtitles.text = 'you BU-';
+        case 264:
+            subtitles.text = 'you BULL-';
+        case 265:
+            subtitles.text = 'you BULLIN\'';
+        case 266:
+            subtitles.text = 'you BULLIN\' me';
+        case 268:
+            subtitles.text = 'you';
+        case 272:
+            subtitles.text = 'you TRO-';
+        case 273:
+            subtitles.text = 'you TROLL-';
+        case 275:
+            subtitles.text = 'you TROLLIN\'';
+        case 278:
+            subtitles.text = 'you TROLLIN\' me';
+        case 284:
+            subtitles.text = 'ASDJosoKJKSADL';
+
+            FlxTween.cancelTweensOf(mask);
+
+            mask.color = FlxColor.WHITE;
+            mask.alpha = 1;
+
+            shader.setFloat('hue', 0.25);
+
+            camGame.targetZoom = camGame.zoom = 0.2;
+            camGame.angle = -5;
+
+            FlxTween.cancelTweensOf(camHUD);
+
+            camHUD.alpha = 0.25;
+        case 286:
+            subtitles.text = 'LASKDLÑm4shaPOS';
+
+            mask.color = FlxColor.BLACK;
+            shader.setFloat('hue', 0.75);
+
+            camGame.targetZoom = camGame.zoom = 0.5;
+            camGame.angle = 5;
+
+            camHUD.alpha = 0.50;
+        case 288:
+            subtitles.text = '';
+            
+            mask.alpha = 0.25;
+            
+            shader.setFloat('hue', 0);
+
+            camGame.targetZoom = 0.3;
+            camGame.angle = 0;
+
+            camHUD.alpha = 1;
+    }
 }
+
+spawnNotes = true;
+
+skipCountdown = true;
