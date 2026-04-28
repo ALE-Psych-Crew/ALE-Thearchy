@@ -12,8 +12,6 @@ shader.set({bloom: 1, red: 1, green: 1, blue: 1});
 function postCreate()
 {
     camGame.setShaders([shader]);
-
-    botplay = true;
 }
 
 public var ratingsText:FlxText;
@@ -165,7 +163,3 @@ function postCharacterAdd(char:Character)
 {
     char.shader = new DropShadowShader(char);
 }
-
-skipCountdown = true;
-
-startTime = Conductor.beatsToTime(4);
