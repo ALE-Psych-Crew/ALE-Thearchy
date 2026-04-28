@@ -17,7 +17,7 @@ function postCreate()
     shader.set({
         blurWidth: 0.025,
         samples: 10,
-        grayscale: 1
+        grayscale: 0.5
     });
 
     botplay = startTime > 0;
@@ -90,8 +90,8 @@ function onSafeBeatHit(curBeat:Int)
                 FlxTween.tween(obj, {y: obj.y + 200, alpha: 1}, 4 * Conductor.secCrochet, {ease: FlxEase.cubeOut});
         case 72:
             stepFunc = (curStep) -> {
-                shader.set({blurWidth: 0.1, aberrationWidth: 0.05});
-                shader.tween({blurWidth: 0.025, aberrationWidth: 0}, Conductor.secCrochet, FlxEase.cubeOut);
+                shader.set({blurWidth: 0.1, aberrationWidth: 0.05, red: 1.2});
+                shader.tween({blurWidth: 0.025, aberrationWidth: 0, red: 0.8}, Conductor.secCrochet, FlxEase.cubeOut);
 
                 camGame.zoom += 0.03;
                 camHUD.zoom += 0.02;
