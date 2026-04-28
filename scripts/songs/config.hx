@@ -6,12 +6,14 @@ import funkin.visuals.shaders.FXShader;
 
 using StringTools;
 
-public var shader:FXShader = new FXShader('global');
+public var shader:FXShader = new FXShader(Paths.exists('shaders/${song.toLowerCase()}.frag') ? song.toLowerCase() : 'global');
 shader.set({bloom: 1, red: 1, green: 1, blue: 1});
 
 function postCreate()
 {
     camGame.setShaders([shader]);
+
+    botplay = true;
 }
 
 public var ratingsText:FlxText;
@@ -95,6 +97,8 @@ function onUpdate(elapsed:Float)
     timeText.text = FlxStringUtil.formatTime(Math.max(0, Conductor.songPosition) / 1000) + ' / ' + FlxStringUtil.formatTime(FlxG.sound.music.length / 1000);
 }
 
+final timer:FlxTimer;
+
 function onComboDisplay(rating:String)
 {
     final path:String = 'hud/' + stage.config.hud + '/combo';
@@ -104,6 +108,16 @@ function onComboDisplay(rating:String)
     comboSprite.loadGraphic(Paths.image(path + '/' + Std.string(rating)));
     comboSprite.x = FlxG.width / 2 - comboSprite.width / 2;
     comboSprite.y = 100 - comboSprite.height / 2;
+
+    FlxTween.cancelTweensOf(comboSprite);
+
+    comboSprite.alpha = 1;
+
+    FlxTween.cancelTweensOf(comboSprite.scale);
+
+    comboSprite.scale.set(0.9, 0.9);
+
+    FlxTween.tween(comboSprite.scale, {x: 0.8, y: 0.8}, Conductor.secCrochet / 2, {ease: FlxEase.cubeOut});
 
     for (index => number in comboNumbers)
     {
@@ -119,13 +133,31 @@ function onComboDisplay(rating:String)
             case 'shit':
                 0xFF32323C;
         }
-    }
-    
-    for (obj in comboNumbers.concat([comboSprite]))
-    {
-        obj.alpha = 1;
+
+        number.x = comboSprite.x + comboSprite.width / 2 - number.width / 2 + 35 * (index - 1);
+        number.y = 160 - number.height / 2;
+
+        FlxTween.cancelTweensOf(number);
+
+        number.alpha = 1;
+
+        FlxTween.cancelTweensOf(number.scale);
+
+        number.scale.set(0.5, 0.5);
+
+        FlxTween.tween(number.scale, {x: 0.4, y: 0.4}, Conductor.secCrochet / 2, {ease: FlxEase.cubeOut});
     }
 
+    timer?.cancel();
+
+    timer = FlxTimer.wait(Conductor.secCrochet, () -> {
+        for (obj in comboGroup)
+        {
+            FlxTween.tween(obj, {alpha: 0}, Conductor.secCrochet, {ease: FlxEase.cubeIn});
+            FlxTween.tween(obj.scale, {x: obj.scale.x / 2, y: obj.scale.y / 2}, Conductor.secCrochet, {ease: FlxEase.cubeIn});
+        }
+    });
+    
     return Function_Stop;
 }
 
@@ -133,3 +165,7 @@ function postCharacterAdd(char:Character)
 {
     char.shader = new DropShadowShader(char);
 }
+
+skipCountdown = true;
+
+startTime = Conductor.beatsToTime(4);

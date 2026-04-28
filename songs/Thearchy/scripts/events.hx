@@ -1,17 +1,24 @@
 import flixel.addons.display.FlxBackdrop;
 
+import funkin.visuals.shaders.FXShader;
+
 var mask:FlxBackdrop = new FlxBackdrop();
 mask.makeGraphic(FlxG.width, FlxG.height);
 
 function onCreate()
 {
-    spawnNotes = startTime <= 0;
+    spawnNotes = false;
 
     skipCountdown = !spawnNotes;
 }
 
 function postCreate()
 {
+    shader.set({
+        blurWidth: 0.025,
+        samples: 10
+    });
+
     botplay = startTime > 0;
 
     addBehindOpponents(mask);
@@ -52,6 +59,11 @@ function onSongStart()
     camGame.tweenZoom(0.5, 32 * Conductor.secCrochet, {ease: FlxEase.cubeOut});
 }
 
+var stepFunc:Int -> Void;
+var stepFuncModulo:Int;
+var stepFuncConfig:Array<Int>;
+var stepFuncOffset:Int;
+
 function onSafeBeatHit(curBeat:Int)
 {
     switch (curBeat)
@@ -73,10 +85,52 @@ function onSafeBeatHit(curBeat:Int)
 
             for (obj in uiGroup)
                 FlxTween.tween(obj, {y: obj.y + 200, alpha: 1}, 4 * Conductor.secCrochet, {ease: FlxEase.cubeOut});
+        case 72:
+            stepFunc = (curStep) -> {
+                shader.set({blurWidth: 0.1});
+                shader.tween({blurWidth: 0.025}, Conductor.secCrochet, FlxEase.cubeOut);
+
+                camGame.zoom += 0.03;
+                camHUD.zoom += 0.02;
+            };
+
+            stepFuncModulo = 64;
+            stepFuncOffset = 32;
+            stepFuncConfig = [
+                0,
+                4,
+                8,
+                12,
+                16,
+                20,
+                24,
+                28, 29, 30, 31,
+                32,
+                36, 38, 39,
+                40,
+                44,
+                48, 50,
+                52, 54,
+                56,
+                60
+            ];
     }
 }
 
-startTime = Conductor.beatsToTime(32);
+function onSafeStepHit(curStep:Int)
+{
+    if (stepFunc != null)
+    {
+        if (stepFuncModulo == null)
+        {
+            stepFunc(curStep);
+        } else if (stepFuncConfig.contains((curStep + (stepFuncOffset ?? 0)) % stepFuncModulo)) {
+            stepFunc(curStep);
+        }
+    }
+}
+
+startTime = Conductor.beatsToTime(0);
 
 var lastCam = null;
 
