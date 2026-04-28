@@ -7,6 +7,7 @@ uniform float bloom;
 uniform float blurWidth;
 uniform float aberrationWidth;
 uniform float hue;
+uniform float grayscale;
 uniform int samples;
 
 vec3 rotateHue(vec3 rgb, float shift)
@@ -46,6 +47,10 @@ void main()
     vec4 color = vec4(r.r * inv * red, g.g * inv * green, b.b * inv * blue, g.a * inv) * bloom;
 
     color.rgb = rotateHue(color.rgb, hue);
+
+    float luma = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
+
+    color.rgb = mix(color.rgb, vec3(luma), grayscale);
 
     gl_FragColor = color;
 }

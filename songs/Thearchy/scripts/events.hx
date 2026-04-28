@@ -16,7 +16,8 @@ function postCreate()
 {
     shader.set({
         blurWidth: 0.025,
-        samples: 10
+        samples: 10,
+        grayscale: 1
     });
 
     botplay = startTime > 0;
