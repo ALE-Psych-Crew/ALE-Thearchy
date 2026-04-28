@@ -49,6 +49,8 @@ function postCreate()
     camGame.zoomSpeed = 2;
     
     camGame.fade(FlxColor.WHITE, 0);
+
+    camHUD.alpha = 0.5;
 }
 
 function onSongStart()
@@ -87,8 +89,8 @@ function onSafeBeatHit(curBeat:Int)
                 FlxTween.tween(obj, {y: obj.y + 200, alpha: 1}, 4 * Conductor.secCrochet, {ease: FlxEase.cubeOut});
         case 72:
             stepFunc = (curStep) -> {
-                shader.set({blurWidth: 0.1});
-                shader.tween({blurWidth: 0.025}, Conductor.secCrochet, FlxEase.cubeOut);
+                shader.set({blurWidth: 0.1, aberrationWidth: 0.05});
+                shader.tween({blurWidth: 0.025, aberrationWidth: 0}, Conductor.secCrochet, FlxEase.cubeOut);
 
                 camGame.zoom += 0.03;
                 camHUD.zoom += 0.02;
@@ -117,6 +119,8 @@ function onSafeBeatHit(curBeat:Int)
     }
 }
 
+startTime = Conductor.beatsToTime(72);
+
 function onSafeStepHit(curStep:Int)
 {
     if (stepFunc != null)
@@ -128,12 +132,4 @@ function onSafeStepHit(curStep:Int)
             stepFunc(curStep);
         }
     }
-}
-
-startTime = Conductor.beatsToTime(0);
-
-var lastCam = null;
-
-function onCameraMove(char:Character)
-{
 }
