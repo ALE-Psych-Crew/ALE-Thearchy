@@ -52,8 +52,11 @@ function postCreate()
     camGame.position.set(1250, 650);
     camGame.snapToTarget();
     camGame.zoomSpeed = 2;
-    
+    camGame.angleSpeed = 0.2;    
     camGame.fade(FlxColor.WHITE, 0);
+
+    iconP2.config.bopScale.x = 2;
+    iconP2.config.bopScale.y = 0.5;
 }
 
 function onSongStart()
@@ -107,38 +110,85 @@ function onSafeBeatHit(curBeat:Int)
             FlxTween.tween(camHUD, {alpha: 0}, Conductor.secCrochet);
         case 72:
             stepFunc = (curStep) -> {
-                shader.set({blurWidth: 0.1, aberrationWidth: 0.05, red: 1.2});
+                shader.set({blurWidth: 0.1, aberrationWidth: 0.1, red: 1.2});
                 shader.tween({blurWidth: 0.025, aberrationWidth: 0, red: 0.8}, Conductor.secCrochet, FlxEase.cubeOut);
 
                 camGame.zoom += 0.03;
                 camHUD.zoom += 0.02;
 
                 camGame.shake(0.01, Conductor.secCrochet / 2);
-                camHUD.shake(0.0025, Conductor.secCrochet);
+                camHUD.shake(0.0025, Conductor.secCrochet / 2);
             };
 
             stepFunc(0);
 
             stepFuncModulo = 64;
             stepFuncOffset = 32;
-            stepFuncConfig = [
-                0,
-                4,
-                8,
-                12,
-                16,
-                20,
-                24,
-                28, 29, 30, 31,
-                32,
-                36, 38, 39,
-                40,
-                44,
-                48, 50,
-                52, 54,
-                56,
-                60
-            ];
+            stepFuncConfig = [0, 4, 8, 12, 16, 20, 24, 28, 29, 30, 31, 32, 36, 38, 39, 40, 44, 48, 50, 52, 54, 56, 60];
+
+            for (char in [dad, bf])
+            {
+                FlxTween.cancelTweensOf(char.shader);
+
+                char.shader.brightness = -50;
+            }
+            
+            FlxTween.cancelTweensOf(stage.get('ground'));
+
+            stage.get('ground').color = FlxColor.WHITE;
+
+            FlxTween.cancelTweensOf(mask);
+
+            mask.color = FlxColor.BLACK;
+            mask.alpha = 0.25;
+            
+            shader.setFloat('hue', 0);
+
+            camGame.targetZoom = 0.3;
+            camGame.angle = 0;
+
+            FlxTween.cancelTweensOf(camHUD);
+
+            camHUD.alpha = 1;
+
+            if (startTime < Conductor.crochet * 72)
+                camHUD.flash(FlxColor.WHITE, 4 * Conductor.secCrochet);
+        case 88:
+            camGame.targetZoom = 0.5;
+        case 104:
+            camGame.zoomSpeed = 3;
+
+            camGame.targetZoom = 0.3;
+            
+            stepFuncConfig = [0, 6, 16, 22, 28, 29, 30, 31, 32, 38, 44, 48, 50, 52, 53, 54, 56, 60];
+
+            shader.tween({grayscale: 0.75, bloom: 0.75, hue: 0.1}, Conductor.secCrochet);
+        case 106:
+            camGame.targetZoom = 0.4;
+            
+            camGame.targetAngle = 5;
+        case 108:
+            camGame.targetZoom = 0.3;
+
+            camGame.targetAngle = 0;
+        case 110:
+            camGame.targetZoom = 0.2;
+
+            camGame.targetAngle = -5;
+        case 112:
+            camGame.targetZoom = 0.7;
+
+            camGame.targetAngle = 0;
+        case 120:
+            camGame.targetZoom = 0.3;
+        case 136:
+            stepFuncConfig = [0, 4, 8, 12, 16, 20, 24, 28, 29, 30, 31, 32, 36, 38, 39, 40, 44, 48, 50, 52, 54, 56, 60];
+        case 160:
+            stepFuncOffset = 0;
+
+            stepFuncConfig = [0, 6, 12, 16, 18, 20, 22, 24, 28];
+        case 168:
+            stepFuncModulo = stepFuncConfig = null;
     }
 }
 
@@ -148,9 +198,10 @@ function onSafeStepHit(curStep:Int)
 {
     if (stepFunc != null)
     {
-        if (stepFuncModulo == null)
+        if (stepFuncConfig == null)
         {
-            stepFunc(curStep);
+            if (stepFuncModulo != null && curStep % stepFuncModulo == 0)
+                stepFunc(curStep);
         } else if (stepFuncConfig.contains((curStep + (stepFuncOffset ?? 0)) % stepFuncModulo)) {
             stepFunc(curStep);
         }
@@ -186,40 +237,42 @@ function onSafeStepHit(curStep:Int)
             FlxTween.cancelTweensOf(mask);
 
             mask.color = FlxColor.WHITE;
-            mask.alpha = 1;
+            mask.alpha = 0.75;
 
-            shader.setFloat('hue', 0.25);
+            shader.set({hue: 0.25, aberrationWidth: -0.2});
 
-            camGame.targetZoom = camGame.zoom = 0.2;
-            camGame.angle = -5;
+            camGame.targetZoom = camGame.zoom = 0.7;
+            camGame.angle = -25;
 
             FlxTween.cancelTweensOf(camHUD);
 
             camHUD.alpha = 0.25;
+
+            moveCamera(bf);
+
+            camGame.snapToTarget();
         case 286:
             subtitles.text = 'LASKDLÑm4shaPOS';
 
             mask.color = FlxColor.BLACK;
-            shader.setFloat('hue', 0.75);
+
+            shader.set({hue: 0.75, aberrationWidth: 0.2});
 
             camGame.targetZoom = camGame.zoom = 0.5;
-            camGame.angle = 5;
+            camGame.angle = 25;
 
-            camHUD.alpha = 0.50;
+            camHUD.alpha = 0.5;
+
+            moveCamera(dad);
+
+            camGame.snapToTarget();
+
+            dad.beatHit(0);
         case 288:
             subtitles.text = '';
-            
-            mask.alpha = 0.25;
-            
-            shader.setFloat('hue', 0);
-
-            camGame.targetZoom = 0.3;
-            camGame.angle = 0;
-
-            camHUD.alpha = 1;
     }
 }
 
-spawnNotes = true;
+spawnNotes = false;
 
 skipCountdown = true;
