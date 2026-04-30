@@ -38,7 +38,7 @@
 				-300,
 				741
 			],
-			"loop": true,
+			"loop": false,
 			"fps": 12,
 			"anim": "idle",
 			"indices": [],

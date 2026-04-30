@@ -19,14 +19,14 @@ add(upBar);
 final downBar:FlxSprite = new FlxSprite(0, FlxG.height).makeGraphic(FlxG.width, FlxG.height / 2, FlxColor.BLACK);
 add(downBar);
 
-function epicBars(?offset:Float = 0, ?time:Float, ?hideHud:Bool = false, ?ease:FlxEase)
+function epicBars(?offset:Float = 0, ?time:Float, ?hudAlpha:Float = 0, ?ease:FlxEase)
 {
     time ??= Conductor.secCrochet;
     ease ??= FlxEase.cubeOut;
 
     FlxTween.cancelTweensOf(camHUD);
 
-    FlxTween.tween(camHUD, {alpha: hideHud ? 0 : 1}, time, {ease: ease});
+    FlxTween.tween(camHUD, {alpha: hudAlpha}, time, {ease: ease});
 
     for (index => bar in [upBar, downBar])
     {
@@ -38,7 +38,8 @@ function epicBars(?offset:Float = 0, ?time:Float, ?hideHud:Bool = false, ?ease:F
 
 function postCreate()
 {
-    cacheCharacter('thearchyCutscene');
+    for (char in ['thearchyCutscene', 'thearchyBlood', 'opposition'])
+        cacheCharacter(char);
 
     subtitles.cameras = [camOther];
 
@@ -72,7 +73,6 @@ function postCreate()
     dad.shader.brightness = bf.shader.brightness = -200;
 
     camHUD.bopModulo = camGame.bopModulo = 0;
-    camHUD.alpha = 0.5;
 
     camGame.position.set(1250, 650);
     camGame.snapToTarget();
@@ -90,6 +90,8 @@ function onSongStart()
 
     camGame.targetZoom = camGame.zoom = 1;
     camGame.tweenZoom(0.5, 32 * Conductor.secCrochet, {ease: FlxEase.cubeOut});
+
+    epicBars(100, Conductor.secCrochet * 2);
 }
 
 var stepFunc:Int -> Void;
@@ -126,6 +128,8 @@ function onSafeBeatHit(curBeat:Int)
 
             camGame.shake(0.01, 32 * Conductor.secCrochet);
             camHUD.shake(0.0025, 32 * Conductor.secCrochet);
+
+            epicBars(0, Conductor.secCrochet * 2, 0.5);
         case 64:
             shader.set({blurWidth: 0.05});
 
@@ -136,7 +140,7 @@ function onSafeBeatHit(curBeat:Int)
             FlxTween.cancelTweensOf(mask);
             FlxTween.color(mask, Conductor.secCrochet, mask.color ?? FlxColor.WHITE, 0xBF000000);
 
-            FlxTween.tween(camHUD, {alpha: 0}, Conductor.secCrochet);
+            epicBars(100, Conductor.secCrochet * 2, 0);
         case 72:
             stepFunc = curStep -> {
                 shader.set({blurWidth: 0.1, aberrationWidth: 0.1, red: 1.2});
@@ -176,12 +180,10 @@ function onSafeBeatHit(curBeat:Int)
             camGame.targetZoom = 0.3;
             camGame.angle = camGame.targetAngle = 0;
 
-            FlxTween.cancelTweensOf(camHUD);
-
-            camHUD.alpha = 1;
+            epicBars(0, Conductor.secCrochet, 1);
 
             if (startTime < Conductor.crochet * 72)
-                camHUD.flash(FlxColor.WHITE, 4 * Conductor.secCrochet);
+                camOther.flash(FlxColor.WHITE, 4 * Conductor.secCrochet);
         case 88:
             camGame.targetZoom = 0.5;
         case 104:
@@ -251,7 +253,7 @@ function onSafeBeatHit(curBeat:Int)
             camHUD.tweenZoom(1.2, Conductor.secCrochet * 2, {ease: FlxEase.cubeIn});
         case 168:
             shader.set({grayscale: 0, bloom: 3, aberrationWidth: 0.1, blurWidth: 0.1});
-            shader.tween({grayscale: 0.75, blurWidth: 0, aberrationWidth: 0, bloom: 0.75}, Conductor.secCrochet * 16, FlxEase.cubeOut);
+            shader.tween({grayscale: 0.75, blurWidth: 0, aberrationWidth: 0, bloom: 0.75}, Conductor.secCrochet * 4, FlxEase.cubeOut);
 
             stepFuncModulo = stepFuncConfig = null;
 
@@ -262,11 +264,19 @@ function onSafeBeatHit(curBeat:Int)
             camHUD.reset();
             camHUD.zoom = 1.2;
 
-            epicBars(100, Conductor.secCrochet * 2, true);
+            epicBars(100, Conductor.secCrochet * 2);
 
             changeCharacter(dad, 'thearchyCutscene');
 
             dad.playSpecialAnim('intro');
+
+            shouldMoveCamera = false;
+        case 172:
+            camGame.tweenPosition(1200, 600, 8 * Conductor.secCrochet, {ease: FlxEase.cubeInOut});
+
+            shader.tween({grayscale: 0.5, bloom: 1}, 8 * Conductor.secCrochet, FlxEase.cubeInOut);
+        case 174:
+            camGame.tweenZoom(0.7, 8 * Conductor.secCrochet, {ease: FlxEase.cubeInOut});
         case 180:
             bf.playSpecialAnim('bfCatch', true, false);
 
@@ -275,18 +285,41 @@ function onSafeBeatHit(curBeat:Int)
             bf.playSpecialAnim('gfKiss', true, false);
             
             bf.bopTimer = Conductor.secCrochet * 3;
+
+            camGame.tweenPosition(200, 600, 8 * Conductor.secCrochet, {ease: FlxEase.cubeInOut});
+            camGame.tweenZoom(0.25, 8 * Conductor.secCrochet, {ease: FlxEase.cubeInOut})
+            ;
+            shader.tween({grayscale: 0.75, bloom: 0.75}, 8 * Conductor.secCrochet, FlxEase.cubeInOut);
         case 188:
             dad.config.bopAnimations = ['crazy-idle', null];
 
             dad.playSpecialAnim('crazy');
         case 196:
-            dad.playSpecialAnim('twirl');
-        case 200:
-            shader.set({bloom: 1, grayscale: 0, blurWidth: 0, aberrationWidth: 0.01});
-        
-            changeCharacter(dad, 'thearchy');
+            camGame.tweenPosition(-1000, 400, 4 * Conductor.secCrochet, {ease: FlxEase.cubeIn});
+            camGame.tweenZoom(0.75, 4 * Conductor.secCrochet, {ease: FlxEase.cubeIn});
 
+            dad.playSpecialAnim('twirl');
+
+            epicBars(50, Conductor.secCrochet * 4, 0, FlxEase.cubeIn);
+
+            shader.tween({bloom: 2, grayscale: 0.5, aberrationWidth: 0.2, blurWidth: 0.5, hue: 0.5}, Conductor.secCrochet * 4, FlxEase.cubeIn);
+        case 200:
+            shader.tween({bloom: 1, grayscale: 0, blurWidth: 0, aberrationWidth: 0.01, hue: 0}, Conductor.secCrochet, FlxEase.cubeOut);
+        
+            epicBars(0, Conductor.secCrochet * 4, 1);
+
+            changeCharacter(dad, 'opposition');
+
+            camGame.cancelZoomTween();
             camGame.targetZoom = 0.25;
+            camGame.zoomSpeed = 2;
+            camGame.speed = 0.5;
+
+            camGame.cancelPositionTween();
+
+            shouldMoveCamera = true;
+
+            FlxTween.tween(game, {speed: 2}, Conductor.secCrochet, {ease: FlxEase.cubeOut});
         case 232:
             CoolUtil.setProperties(stage.get('text'), {
                 velocity: {
@@ -303,10 +336,14 @@ function onSafeBeatHit(curBeat:Int)
             updateFunc = elapsed -> {
                 shader.setFloat('hue', Math.cos(curTime / 2) * 0.5 + 0.5);
             };
+            
+            FlxTween.tween(game, {speed: 3.2}, Conductor.secCrochet, {ease: FlxEase.cubeOut});
+
+            changeCharacter(dad, 'thearchyBlood');
     }
 }
 
-startTime = Conductor.beatsToTime(0);
+startTime = Conductor.beatsToTime(168);
 
 function onUpdate(elapsed:Float)
 {
@@ -368,8 +405,6 @@ function onSafeStepHit(curStep:Int)
 
             FlxTween.cancelTweensOf(camHUD);
 
-            camHUD.alpha = 0.25;
-
             moveCamera(bf);
 
             camGame.snapToTarget();
@@ -383,8 +418,6 @@ function onSafeStepHit(curStep:Int)
             camGame.targetZoom = camGame.zoom = 0.5;
             camGame.angle = camGame.targetAngle = 25;
 
-            camHUD.alpha = 0.5;
-
             moveCamera(dad);
 
             camGame.snapToTarget();
@@ -395,6 +428,6 @@ function onSafeStepHit(curStep:Int)
     }
 }
 
-spawnNotes = true;
+spawnNotes = false;
 
 skipCountdown = true;
