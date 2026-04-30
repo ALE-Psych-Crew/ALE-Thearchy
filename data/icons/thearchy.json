@@ -1,0 +1,60 @@
+{
+	"images": [
+		"thearchy"
+	],
+	"bopModulo": 1,
+	"type": "frames",
+	"healthAnimations": [
+		{
+			"name": "lose",
+			"percent": 0
+		},
+		{
+			"name": "neutral",
+			"percent": 20
+		}
+	],
+	"properties": {
+		"antialiasing": false,
+		"scale": {
+			"x": 1,
+			"y": 1
+		},
+		"flipX": false
+	},
+	"frames": 2,
+	"format": "ale-icon-v0.1",
+	"bopScale": {
+		"x": 2,
+		"y": 0.5
+	},
+	"animations": [
+		{
+			"loop": false,
+			"frameRate": 0,
+			"prefix": "lose",
+			"name": "lose",
+			"offset": {
+				"x": 20,
+				"y": 0
+			},
+			"indices": [
+				1
+			]
+		},
+		{
+			"loop": false,
+			"frameRate": 0,
+			"prefix": "neutral",
+			"name": "neutral",
+			"offset": {
+				"x": 20,
+				"y": 0
+			},
+			"indices": [
+				0
+			]
+		}
+	],
+	"speed": 0.4
+}

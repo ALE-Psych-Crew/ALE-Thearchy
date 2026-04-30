@@ -287,8 +287,8 @@ function onSafeBeatHit(curBeat:Int)
             bf.bopTimer = Conductor.secCrochet * 3;
 
             camGame.tweenPosition(200, 600, 8 * Conductor.secCrochet, {ease: FlxEase.cubeInOut});
-            camGame.tweenZoom(0.25, 8 * Conductor.secCrochet, {ease: FlxEase.cubeInOut})
-            ;
+            camGame.tweenZoom(0.25, 8 * Conductor.secCrochet, {ease: FlxEase.cubeInOut});
+            
             shader.tween({grayscale: 0.75, bloom: 0.75}, 8 * Conductor.secCrochet, FlxEase.cubeInOut);
         case 188:
             dad.config.bopAnimations = ['crazy-idle', null];
@@ -320,6 +320,9 @@ function onSafeBeatHit(curBeat:Int)
             shouldMoveCamera = true;
 
             FlxTween.tween(game, {speed: 2}, Conductor.secCrochet, {ease: FlxEase.cubeOut});
+
+            if (startTime <= Conductor.crochet * 200)
+                camGame.flash(FlxColor.WHITE, Conductor.secCrochet * 4);
         case 232:
             CoolUtil.setProperties(stage.get('text'), {
                 velocity: {
@@ -332,6 +335,11 @@ function onSafeBeatHit(curBeat:Int)
             wavyShader.set({speed: 10, frequency: 20});
 
             mask.alpha = 0;
+            
+            camHUD.zoomSpeed = camGame.zoomSpeed = 3;
+            camGame.speed = 2;
+
+            curTime = 0;
 
             updateFunc = elapsed -> {
                 shader.setFloat('hue', Math.cos(curTime / 2) * 0.5 + 0.5);
@@ -340,10 +348,13 @@ function onSafeBeatHit(curBeat:Int)
             FlxTween.tween(game, {speed: 3.2}, Conductor.secCrochet, {ease: FlxEase.cubeOut});
 
             changeCharacter(dad, 'thearchyBlood');
+            
+            if (startTime <= Conductor.crochet * 232)
+                camGame.flash(FlxColor.WHITE, Conductor.secCrochet * 4);
     }
 }
 
-startTime = Conductor.beatsToTime(168);
+startTime = Conductor.beatsToTime(232);
 
 function onUpdate(elapsed:Float)
 {
