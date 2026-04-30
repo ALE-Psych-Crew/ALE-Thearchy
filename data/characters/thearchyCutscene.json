@@ -43,7 +43,7 @@
 			]
 		},
 		{
-			"loop": false,
+			"loop": true,
 			"offsets": [
 				-131,
 				279

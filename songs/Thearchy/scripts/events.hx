@@ -15,6 +15,8 @@ add(subtitles);
 
 function postCreate()
 {
+    cacheCharacter('thearchyCutscene');
+
     subtitles.cameras = [camOther];
 
     shader.set({
@@ -145,7 +147,7 @@ function onSafeBeatHit(curBeat:Int)
             shader.setFloat('hue', 0);
 
             camGame.targetZoom = 0.3;
-            camGame.angle = 0;
+            camGame.angle = camGame.targetAngle = 0;
 
             FlxTween.cancelTweensOf(camHUD);
 
@@ -156,6 +158,17 @@ function onSafeBeatHit(curBeat:Int)
         case 88:
             camGame.targetZoom = 0.5;
         case 104:
+            stepFunc = (curStep) -> {
+                shader.set({blurWidth: 0.15, aberrationWidth: 0.15, red: 1.2});
+                shader.tween({blurWidth: 0.05, aberrationWidth: 0.05, red: 0.8}, Conductor.secCrochet, FlxEase.cubeOut);
+
+                camGame.zoom += 0.03;
+                camHUD.zoom += 0.02;
+
+                camGame.shake(0.01, Conductor.secCrochet / 2);
+                camHUD.shake(0.0025, Conductor.secCrochet / 2);
+            };
+
             camGame.zoomSpeed = 3;
 
             camGame.targetZoom = 0.3;
@@ -181,14 +194,48 @@ function onSafeBeatHit(curBeat:Int)
             camGame.targetAngle = 0;
         case 120:
             camGame.targetZoom = 0.3;
+        case 128:
+            camGame.targetZoom = 0.7;
         case 136:
+            camGame.targetZoom = 0.3;
+            camGame.position.set(0, 500);
+
+            shouldMoveCamera = false;
+
             stepFuncConfig = [0, 4, 8, 12, 16, 20, 24, 28, 29, 30, 31, 32, 36, 38, 39, 40, 44, 48, 50, 52, 54, 56, 60];
+
+            shader.tween({grayscale: 0.5, bloom: 1, hue: 0}, Conductor.secCrochet);
+        case 152:
+            camGame.targetZoom = 0.4;
         case 160:
             stepFuncOffset = 0;
 
             stepFuncConfig = [0, 6, 12, 16, 18, 20, 22, 24, 28];
+
+            camGame.speed = 5;
+
+            shouldMoveCamera = true;
+        case 166:
+            camGame.tweenZoom(1, Conductor.secCrochet * 2, {ease: FlxEase.backIn});
+            camHUD.tweenZoom(1.2, Conductor.secCrochet * 2, {ease: FlxEase.cubeIn});
         case 168:
+            shader.set({grayscale: 0.75, bloom: 0.5});
+
             stepFuncModulo = stepFuncConfig = null;
+
+            camGame.reset();
+            camGame.targetZoom = 0.3;
+
+            camHUD.reset();
+            camHUD.zoom = 1.2;
+
+            changeCharacter(dad, 'thearchyCutscene');
+
+            dad.config.bopAnimations = ['idle-2', null];
+        case 188:
+            dad.config.bopAnimations = ['idle-3', null, null, null];
+        case 192:
+            dad.config.bopAnimations = ['idle'];
     }
 }
 
@@ -242,7 +289,7 @@ function onSafeStepHit(curStep:Int)
             shader.set({hue: 0.25, aberrationWidth: -0.2});
 
             camGame.targetZoom = camGame.zoom = 0.7;
-            camGame.angle = -25;
+            camGame.angle = camGame.targetAngle = -25;
 
             FlxTween.cancelTweensOf(camHUD);
 
@@ -259,7 +306,7 @@ function onSafeStepHit(curStep:Int)
             shader.set({hue: 0.75, aberrationWidth: 0.2});
 
             camGame.targetZoom = camGame.zoom = 0.5;
-            camGame.angle = 25;
+            camGame.angle = camGame.targetAngle = 25;
 
             camHUD.alpha = 0.5;
 
