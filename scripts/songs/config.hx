@@ -70,7 +70,7 @@ function onScoreTextUpdate()
         CoolUtil.floorDecimal(accuracy, 1) + '% :Accuracy'
     ].join('\n');
 
-    scoreText.text = 'ALE P | SC:R 1.0';
+    scoreText.text = 'ALE P | SC:R 1.0 ' + (botplay ? ' - BOTPLAY' : '');
 
     return Function_Stop;
 }

@@ -4,14 +4,37 @@ import flixel.util.FlxAxes;
 
 import funkin.visuals.shaders.FXShader;
 
-var mask:FlxBackdrop = new FlxBackdrop();
+final mask:FlxBackdrop = new FlxBackdrop();
 mask.makeGraphic(FlxG.width, FlxG.height);
 
-var subtitles:FlxText = new FlxText(0, 0, FlxG.width, '');
+final subtitles:FlxText = new FlxText(0, 0, FlxG.width, '');
 subtitles.setFormat(Paths.font('comicSans.ttf'), 60, FlxColor.WHITE, 'center', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 subtitles.borderSize = subtitles.size / 10;
 subtitles.y = FlxG.height * 0.7;
 add(subtitles);
+
+final upBar:FlxSprite = new FlxSprite(0, -FlxG.height / 2).makeGraphic(FlxG.width, FlxG.height / 2, FlxColor.BLACK);
+add(upBar);
+
+final downBar:FlxSprite = new FlxSprite(0, FlxG.height).makeGraphic(FlxG.width, FlxG.height / 2, FlxColor.BLACK);
+add(downBar);
+
+function epicBars(?offset:Float = 0, ?time:Float, ?hideHud:Bool = false, ?ease:FlxEase)
+{
+    time ??= Conductor.secCrochet;
+    ease ??= FlxEase.cubeOut;
+
+    FlxTween.cancelTweensOf(camHUD);
+
+    FlxTween.tween(camHUD, {alpha: hideHud ? 0 : 1}, time, {ease: ease});
+
+    for (index => bar in [upBar, downBar])
+    {
+        FlxTween.cancelTweensOf(bar);
+        
+        FlxTween.tween(bar, {y: index == 0 ? offset - FlxG.height / 2 : FlxG.height - offset}, time, {ease: ease});
+    }
+}
 
 function postCreate()
 {
@@ -57,8 +80,8 @@ function postCreate()
     camGame.angleSpeed = 0.2;    
     camGame.fade(FlxColor.WHITE, 0);
 
-    iconP2.config.bopScale.x = 2;
-    iconP2.config.bopScale.y = 0.5;
+    upBar.cameras = [camOther];
+    downBar.cameras = [camOther];
 }
 
 function onSongStart()
@@ -73,6 +96,9 @@ var stepFunc:Int -> Void;
 var stepFuncModulo:Int;
 var stepFuncConfig:Array<Int>;
 var stepFuncOffset:Int;
+
+var updateFunc:Float -> Void;
+var curTime:Float = 0;
 
 function onSafeBeatHit(curBeat:Int)
 {
@@ -103,6 +129,7 @@ function onSafeBeatHit(curBeat:Int)
         case 64:
             shader.set({blurWidth: 0.05});
 
+            camGame.speed = 3;
             camGame.targetZoom = 0.4;
             camGame.stopFX();
 
@@ -111,7 +138,7 @@ function onSafeBeatHit(curBeat:Int)
 
             FlxTween.tween(camHUD, {alpha: 0}, Conductor.secCrochet);
         case 72:
-            stepFunc = (curStep) -> {
+            stepFunc = curStep -> {
                 shader.set({blurWidth: 0.1, aberrationWidth: 0.1, red: 1.2});
                 shader.tween({blurWidth: 0.025, aberrationWidth: 0, red: 0.8}, Conductor.secCrochet, FlxEase.cubeOut);
 
@@ -158,7 +185,7 @@ function onSafeBeatHit(curBeat:Int)
         case 88:
             camGame.targetZoom = 0.5;
         case 104:
-            stepFunc = (curStep) -> {
+            stepFunc = curStep -> {
                 shader.set({blurWidth: 0.15, aberrationWidth: 0.15, red: 1.2});
                 shader.tween({blurWidth: 0.05, aberrationWidth: 0.05, red: 0.8}, Conductor.secCrochet, FlxEase.cubeOut);
 
@@ -205,6 +232,8 @@ function onSafeBeatHit(curBeat:Int)
             stepFuncConfig = [0, 4, 8, 12, 16, 20, 24, 28, 29, 30, 31, 32, 36, 38, 39, 40, 44, 48, 50, 52, 54, 56, 60];
 
             shader.tween({grayscale: 0.5, bloom: 1, hue: 0}, Conductor.secCrochet);
+
+            camHUD.targetZoom = 0.9;
         case 152:
             camGame.targetZoom = 0.4;
         case 160:
@@ -215,31 +244,77 @@ function onSafeBeatHit(curBeat:Int)
             camGame.speed = 5;
 
             shouldMoveCamera = true;
+        case 164:
+            camGame.targetZoom = 0.5;
         case 166:
-            camGame.tweenZoom(1, Conductor.secCrochet * 2, {ease: FlxEase.backIn});
+            camGame.tweenZoom(1, Conductor.secCrochet * 2, {ease: FlxEase.elasticIn});
             camHUD.tweenZoom(1.2, Conductor.secCrochet * 2, {ease: FlxEase.cubeIn});
         case 168:
-            shader.set({grayscale: 0.75, bloom: 0.5});
+            shader.set({grayscale: 0, bloom: 3, aberrationWidth: 0.1, blurWidth: 0.1});
+            shader.tween({grayscale: 0.75, blurWidth: 0, aberrationWidth: 0, bloom: 0.75}, Conductor.secCrochet * 16, FlxEase.cubeOut);
 
             stepFuncModulo = stepFuncConfig = null;
 
             camGame.reset();
-            camGame.targetZoom = 0.3;
+            camGame.targetZoom = 0.25;
+            camGame.bopModulo = 0;
 
             camHUD.reset();
             camHUD.zoom = 1.2;
 
+            epicBars(100, Conductor.secCrochet * 2, true);
+
             changeCharacter(dad, 'thearchyCutscene');
 
-            dad.config.bopAnimations = ['idle-2', null];
+            dad.playSpecialAnim('intro');
+        case 180:
+            bf.playSpecialAnim('bfCatch', true, false);
+
+            bf.bopTimer = Conductor.secCrochet * 4;
+        case 184:
+            bf.playSpecialAnim('gfKiss', true, false);
+            
+            bf.bopTimer = Conductor.secCrochet * 3;
         case 188:
-            dad.config.bopAnimations = ['idle-3', null, null, null];
-        case 192:
-            dad.config.bopAnimations = ['idle'];
+            dad.config.bopAnimations = ['crazy-idle', null];
+
+            dad.playSpecialAnim('crazy');
+        case 196:
+            dad.playSpecialAnim('twirl');
+        case 200:
+            shader.set({bloom: 1, grayscale: 0, blurWidth: 0, aberrationWidth: 0.01});
+        
+            changeCharacter(dad, 'thearchy');
+
+            camGame.targetZoom = 0.25;
+        case 232:
+            CoolUtil.setProperties(stage.get('text'), {
+                velocity: {
+                    x: 5000,
+                    y: -1000
+                },
+                angle: -5
+            });
+
+            wavyShader.set({speed: 10, frequency: 20});
+
+            mask.alpha = 0;
+
+            updateFunc = elapsed -> {
+                shader.setFloat('hue', Math.cos(curTime / 2) * 0.5 + 0.5);
+            };
     }
 }
 
 startTime = Conductor.beatsToTime(0);
+
+function onUpdate(elapsed:Float)
+{
+    curTime += elapsed;
+
+    if (updateFunc != null)
+        updateFunc(elapsed);
+}
 
 function onSafeStepHit(curStep:Int)
 {
@@ -320,6 +395,6 @@ function onSafeStepHit(curStep:Int)
     }
 }
 
-spawnNotes = false;
+spawnNotes = true;
 
 skipCountdown = true;

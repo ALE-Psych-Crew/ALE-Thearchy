@@ -1,4 +1,5 @@
 {
     "developerMode": true,
-    "initialState": "FreeplayState"
+    "initialState": "FreeplayState",
+    "scriptsHotReloading": true
 }

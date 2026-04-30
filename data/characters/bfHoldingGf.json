@@ -108,11 +108,48 @@
 			"anim": "bfCatch",
 			"fps": 24,
 			"name": "BF catches GF",
-			"indices": []
+			"indices": [
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11
+			]
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				90
+			],
+			"anim": "gfKiss",
+			"fps": 24,
+			"name": "BF catches GF",
+			"indices": [
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23
+			]
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/bfHoldingGf",
+	"image": "characters/bfHoldingGF",
 	"position": [
 		0,
 		350
