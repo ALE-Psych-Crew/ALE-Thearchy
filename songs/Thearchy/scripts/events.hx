@@ -354,7 +354,7 @@ function onSafeBeatHit(curBeat:Int)
     }
 }
 
-startTime = Conductor.beatsToTime(232);
+startTime = Conductor.beatsToTime(0);
 
 function onUpdate(elapsed:Float)
 {
@@ -439,6 +439,6 @@ function onSafeStepHit(curStep:Int)
     }
 }
 
-spawnNotes = false;
+spawnNotes = true;
 
 skipCountdown = true;
