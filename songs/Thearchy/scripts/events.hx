@@ -4,6 +4,8 @@ import flixel.util.FlxAxes;
 
 import funkin.visuals.shaders.FXShader;
 
+import funkin.modchart.*;
+
 final mask:FlxBackdrop = new FlxBackdrop();
 mask.makeGraphic(FlxG.width, FlxG.height);
 
@@ -107,6 +109,22 @@ function onSafeBeatHit(curBeat:Int)
     switch (curBeat)
     {
         case 32:
+            modchart.setGlobalModifier('circle', {
+                updateData: {
+                    speed: 10
+                },
+                beatBop: {
+                    modulo: 16,
+                    config: [0, 2, 5, 6, 8, 10, 13, 14, 15],
+                    offset: 8
+                },
+                stepBop: {
+                    modulo: 64,
+                    config: [62],
+                    offset: 32
+                }
+            });
+            
             camGame.cancelZoomTween();
             camGame.targetZoom = 0.3;
 
@@ -354,7 +372,7 @@ function onSafeBeatHit(curBeat:Int)
     }
 }
 
-startTime = Conductor.beatsToTime(0);
+startTime = Conductor.beatsToTime(32);
 
 function onUpdate(elapsed:Float)
 {
@@ -439,6 +457,6 @@ function onSafeStepHit(curStep:Int)
     }
 }
 
-spawnNotes = true;
+spawnNotes = false;
 
 skipCountdown = true;

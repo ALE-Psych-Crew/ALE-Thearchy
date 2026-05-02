@@ -4,6 +4,8 @@ import flixel.util.FlxStringUtil;
 import funkin.visuals.shaders.DropShadowShader;
 import funkin.visuals.shaders.FXShader;
 
+import funkin.modchart.*;
+
 using StringTools;
 
 public var shader:FXShader = new FXShader(Paths.exists('shaders/${song.toLowerCase()}.frag') ? song.toLowerCase() : 'global');
@@ -11,6 +13,11 @@ shader.set({bloom: 1, red: 1, green: 1, blue: 1});
 
 function postCreate()
 {
+    modchart = new ModchartManager(strumLines);
+    add(modchart);
+
+    ModchartUtil.registerModifier('circle', strum -> new CircleModifier(strum));
+
     camGame.setShaders([shader]);
 }
 
