@@ -167,6 +167,4 @@ function onComboDisplay(rating:String)
 }
 
 function postCharacterAdd(char:Character)
-{
     char.shader = new DropShadowShader(char);
-}
