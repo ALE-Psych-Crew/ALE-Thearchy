@@ -1,0 +1,20 @@
+{
+	"songs": [
+		{
+			"icon": "thearchy",
+			"name": "Thearchy",
+			"color": "#808080"
+		}
+	],
+	"background": "stage",
+	"image": "week",
+	"phrase": "Daddy Dearest",
+	"locked": false,
+	"hideFreeplay": false,
+	"hideStoryMode": false,
+	"previousWeek": "tutorial",
+	"difficulties": [
+		"Normal"
+	],
+	"format": "ale-week-v0.1"
+}

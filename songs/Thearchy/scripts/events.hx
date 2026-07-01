@@ -40,8 +40,10 @@ function epicBars(?offset:Float = 0, ?time:Float, ?hudAlpha:Float = 0, ?ease:Flx
 
 function postCreate()
 {
+    /*
     for (char in ['thearchyCutscene', 'thearchyBlood', 'opposition'])
         cacheCharacter(char);
+    */
 
     subtitles.cameras = [camOther];
 
@@ -55,7 +57,7 @@ function postCreate()
 
     addBehindOpponents(mask);
 
-    shouldMoveCamera = false;
+    allowCameraMoving = false;
 
     stage.get('ground').color = FlxColor.fromRGB(50, 50, 50);
 
@@ -79,8 +81,7 @@ function postCreate()
     camGame.position.set(1250, 650);
     camGame.snapToTarget();
     camGame.zoomSpeed = 2;
-    camGame.angleSpeed = 0.2;    
-    camGame.fade(FlxColor.WHITE, 0);
+    camGame.angleSpeed = 0.2;
 
     upBar.cameras = [camOther];
     downBar.cameras = [camOther];
@@ -112,7 +113,7 @@ function onSafeBeatHit(curBeat:Int)
             camGame.cancelZoomTween();
             camGame.targetZoom = 0.3;
 
-            shouldMoveCamera = true;
+            allowCameraMoving = true;
 
             FlxTween.tween(dad, {alpha: 1}, 2 * Conductor.secCrochet, {ease: FlxEase.cubeOut});
 
@@ -231,7 +232,7 @@ function onSafeBeatHit(curBeat:Int)
             camGame.targetZoom = 0.3;
             camGame.position.set(0, 500);
 
-            shouldMoveCamera = false;
+            allowCameraMoving = false;
 
             stepFuncConfig = [0, 4, 8, 12, 16, 20, 24, 28, 29, 30, 31, 32, 36, 38, 39, 40, 44, 48, 50, 52, 54, 56, 60];
 
@@ -247,7 +248,7 @@ function onSafeBeatHit(curBeat:Int)
 
             camGame.speed = 5;
 
-            shouldMoveCamera = true;
+            allowCameraMoving = true;
         case 164:
             camGame.targetZoom = 0.5;
         case 166:
@@ -272,7 +273,7 @@ function onSafeBeatHit(curBeat:Int)
 
             dad.playSpecialAnim('intro');
 
-            shouldMoveCamera = false;
+            allowCameraMoving = false;
         case 172:
             camGame.tweenPosition(1200, 600, 8 * Conductor.secCrochet, {ease: FlxEase.cubeInOut});
 
@@ -319,7 +320,7 @@ function onSafeBeatHit(curBeat:Int)
 
             camGame.cancelPositionTween();
 
-            shouldMoveCamera = true;
+            allowCameraMoving = true;
 
             FlxTween.tween(game, {speed: 2}, Conductor.secCrochet, {ease: FlxEase.cubeOut});
 
@@ -356,7 +357,7 @@ function onSafeBeatHit(curBeat:Int)
     }
 }
 
-startTime = Conductor.beatsToTime(32);
+startTime = 128 * Conductor.crochet;
 
 function onUpdate(elapsed:Float)
 {
@@ -441,6 +442,6 @@ function onSafeStepHit(curStep:Int)
     }
 }
 
-spawnNotes = false;
+// spawnNotes = false;
 
 skipCountdown = true;
