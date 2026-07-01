@@ -282,7 +282,6 @@ function onSafeBeatHit(curBeat:Int)
             camGame.tweenZoom(0.7, 8 * Conductor.secCrochet, {ease: FlxEase.cubeInOut});
         case 180:
             bf.playSpecialAnim('bfCatch', true, false);
-
             bf.bopTimer = Conductor.secCrochet * 4;
         case 184:
             bf.playSpecialAnim('gfKiss', true, false);
@@ -356,8 +355,6 @@ function onSafeBeatHit(curBeat:Int)
                 camGame.flash(FlxColor.WHITE, Conductor.secCrochet * 4);
     }
 }
-
-startTime = 128 * Conductor.crochet;
 
 function onUpdate(elapsed:Float)
 {
