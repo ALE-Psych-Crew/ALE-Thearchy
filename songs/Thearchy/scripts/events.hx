@@ -356,6 +356,8 @@ function onSafeBeatHit(curBeat:Int)
     }
 }
 
+startTime = Conductor.beatToTime(72);
+
 function onUpdate(elapsed:Float)
 {
     curTime += elapsed;
@@ -439,6 +441,6 @@ function onSafeStepHit(curStep:Int)
     }
 }
 
-// spawnNotes = false;
+spawnNotes = false;
 
 skipCountdown = true;
